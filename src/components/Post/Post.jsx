@@ -21,7 +21,6 @@ class Post extends Component {
     axios
       .get(`/api/post/${this.props.match.params.postid}`)
       .then(res => {
-        console.log(res.data)
         this.setState({...res.data})
       })
   }

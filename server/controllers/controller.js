@@ -2,17 +2,17 @@ module.exports = {
   getPosts: async (req, res) => {
     const db = req.app.get('db');
     const {userposts, search} = req.query;
-    const {userid} = req.params;
+    const {id} = req.session.user;
     if (userposts === 'true' && search !== '%%') {
       const filteredPosts = await db.title_search_posts([search]);
       return res.status(200).send(filteredPosts);
     };
     if (userposts === 'false' && search === '%%')  {
-      const filteredposts = await db.nonUser_posts([userid]);
+      const filteredposts = await db.nonUser_posts([id]);
       return res.status(200).send(filteredposts);
     };
     if (userposts === 'false' && search !== '%%') {
-      const filteredPosts = await db.nonUser_search_posts([userid, search]);
+      const filteredPosts = await db.nonUser_search_posts([id, search]);
       return res.status(200).send(filteredPosts);
     };
     if (userposts === 'true' && search === '%%') {
@@ -31,7 +31,7 @@ module.exports = {
   makePost: (req, res) => {
     const db = req.app.get('db');
     const {title, img, content} = req.body
-    const {userid: author_id} = req.params
+    const {id: author_id} = req.session.user
     db.make_post({title, img, content, author_id})
     .then(() => {
       res.sendStatus(201)

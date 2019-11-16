@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import axios from 'axios'
 
 class Form extends Component {
@@ -20,7 +19,7 @@ class Form extends Component {
   
   makeTheThing() {
     axios
-      .post(`/api/posts/${this.props.id}`, this.state)
+      .post(`/api/posts`, this.state)
       .then(() => {
         this.props.history.push('/dashboard')
       })
@@ -42,11 +41,6 @@ class Form extends Component {
   };
 };
 
-function mapStateToProps(duckState) {
-  const {id} = duckState;
-  return {
-    id
-  };
-};
 
-export default connect(mapStateToProps)(Form);
+
+export default Form;
