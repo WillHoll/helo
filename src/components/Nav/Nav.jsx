@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 class Nav extends Component {
   render() {
-    console.log(this.props)
     return (
       <div className='Nav'>
         <h2>{this.props.username}</h2>

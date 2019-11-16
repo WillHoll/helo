@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -29,8 +30,8 @@ class Dashboard extends Component {
   }
 
   theGetter() {
-    const {id} = this.props
-    const {userposts, search} = this.state
+    const { id } = this.props
+    const { userposts, search } = this.state
     axios
       .get(`/api/posts/${id}?userposts=${userposts}&search=%${search}%`)
       .then(res => {
@@ -41,10 +42,11 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log(this.state.posts)
     const listView = this.state.posts.map(post => (
       <div key={post.id}>
-        <h2>{post.title}</h2>
+        <Link to={`/post/${post.id}`}>
+          <h2>{post.title}</h2>
+        </Link>
         <h2>{post.username}</h2>
         <img src={post.profile_pic} alt="author" />
       </div>
@@ -63,7 +65,7 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps(reduxState) {
-  const {id} = reduxState
+  const { id } = reduxState
   return {
     id
   }

@@ -18,8 +18,8 @@ app.post('/api/auth/login', authCtrl.login);
 //Post Endpoints
 
 app.get('/api/posts/:userid', ctrl.getPosts);
-app.post('/api/posts/:userid');
-app.get('/api/posts/:postid');
+app.post('/api/posts/:userid', ctrl.makePost);
+app.get('/api/post/:postid', ctrl.getPost);
 
 massive(CONNECTION_STRING).then(db => {
   app.set('db', db)
